@@ -1,35 +1,23 @@
-@extends('main')
+@extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Dashboard</div>
 
-@section('breadcrumbs')
-<div class="breadcrumbs">
-    <div class="col-sm-4">
-        <div class="page-header float-left">
-            <div class="page-title">
-                <h1>DASHBOARD</h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-8">
-        <div class="page-header float-right">
-            <div class="page-title">
-                <ol class="breadcrumb text-right">
-                    <li><a href="#"><i class="fa fa-dashboard"></i></a></li>
-                </ol>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    You are logged in!
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-@endsection
-
-
-@section('content')
-<div class="content mt-3">
-    <div class="animated fadeIn">
-        isi konten
-
-    </div><!-- .animated -->
-</div><!-- .content -->
 @endsection

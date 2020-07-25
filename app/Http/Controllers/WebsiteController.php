@@ -7,15 +7,18 @@ use Illuminate\Support\Facades\DB;
 use App\ListWebsite;
 use App\JenisWebsite;
 use App\User;
+use Carbon\Carbon;
+use DateTime;
+
 
 class WebsiteController extends Controller
 {
     public function index() {
     	$listWebsite = ListWebsite::latest()->paginate(100);
     	$jenisWebsite = JenisWebsite::all();
-    	$users = User::all(); 
+    	$user = User::all(); 
 
-    	return view('pages.list-website.website-data', compact('listWebsite','users','jenisWebsite'));
+    	return view('pages.list-website.website-data', compact('listWebsite','user','jenisWebsite'));
 
     }
 
@@ -36,10 +39,16 @@ class WebsiteController extends Controller
     	$listWebsite->merk = $request->input('merk');
     	$listWebsite->wilayah = $request->input('wilayah');
     	$listWebsite->tgl_aktif = $request->input('tgl_aktif');
-    	$listWebsite->tgl_selesai = $request->input('tgl_selesai');
+    	$listWebsite->tgl_selesai = new DateTime($request->input('tgl_selesai'));
     	$listWebsite->periode = $request->input('periode');
     	$listWebsite->status = $request->input('status');
     	$listWebsite->id_jenis_website = $request->input('id_jenis_website');
+    	// query untuk membuat selisih tgl otomatis
+    	$tglSekarang = new DateTime(date('Y-m-d'));
+    	// $tglSelesai = new DateTime($website->tgl_selesai) ;
+    	$expiredWeb = date_diff($tglSekarang, $listWebsite->tgl_selesai); // query untuk menghitung selisih antara tgl sekarang dan tanggal selesai
+    	// $expiredWeb->days = mengambil data jumlah selisih hari dari $expired web
+    	$listWebsite->expired_at = $expiredWeb->days;
     	$listWebsite->save();
 
     	return redirect('list-website/data')->with('success', 'Data Tersimpan');
@@ -60,6 +69,30 @@ class WebsiteController extends Controller
     	$listWebsite = ListWebsite::find($id);
     	$listWebsite->update($request->all());
 
-    	return redirect('list-website/data')->with('success', 'Data Telah Diedit');;
+    	return redirect()->route('list-website.data', compact('listWebsite'))->with('success', 'Data Telah Diedit');;
+    }
+
+    //function hapus data
+    public function delete($id){
+    	$listWebsite = ListWebsite::find($id);
+    	$listWebsite->delete();
+
+    	return redirect()->route('list-website.data', compact('listWebsite'))->with('success', 'Data Terhapus');
+    }
+
+    // function untuk menghitung 20 hari sebelum tgl selesai sewa web
+    public function expiredWebsite(){
+    	// $listWebsite = ListWebsite::find($id);
+    	$website = ListWebsite::find(1);
+    	$listWebsite = new ListWebsite;
+    	// dd($listWebsite);
+
+    	$tglSekarang = new DateTime(date('Y-m-d'));
+    	$tglSelesai = new DateTime($website->tgl_selesai) ;
+    	$expiredWeb = date_diff($tglSekarang, $tglSelesai); // query untuk menghitung selisih antara tgl sekarang dan tanggal selesai
+    	$listWebsite->expiredWeb = $expiredWeb;
+    	$listWebsite->save();
+
+    	// echo $expiredWeb->format('%m Bulan %d Hari');
     }
 }

@@ -25,6 +25,7 @@ class CreateListWebsiteTable extends Migration
             $table->string('periode');
             $table->string('status');
             $table->unsignedInteger('id_jenis_website');
+            $table->text('expired_at');
 
             $table->timestamps();
 

@@ -10,6 +10,6 @@ class JenisWebsite extends Model
     protected $guarded = ['id'];
 
     public function listWebsite() {
-    	return $this->belongsTo('App\ListWebsite');
+    	return $this->hasMany('App\ListWebsite');
     }
 }

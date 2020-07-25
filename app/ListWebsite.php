@@ -10,10 +10,10 @@ class ListWebsite extends Model
     protected $guarded = ['id'];
 
     public function user() {
-    	return $this->hasMany('App\User');
+    	return $this->belongsTo('App\User', 'id_pelanggan');
     }
 
     public function jenisWebsite() {
-    	return $this->hasMany('App\JenisWebsite');
+    	return $this->belongsTo('App\JenisWebsite', 'id_jenis_website');
     }
 }

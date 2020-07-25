@@ -1,6 +1,6 @@
 @extends('layouts._master')
 
-@section('title', 'Create New Website')
+@section('title', 'Edit Website')
 
 @section('breadcrumbs')
 
@@ -8,7 +8,7 @@
 	<div class="card">
 		<div class="card-header">
 			<div class="pull-left">
-				<strong>Create New Website</strong>
+				<strong>Edit Website</strong>
 			</div>
 			<div class="pull-right">
 				<a href="#" class="btn btn-secondary btn-sm">
@@ -19,7 +19,7 @@
 		<div class="card-body">
 			<div class="row">
 				<div class="col-md-4 offset-md-4">
-					<form action=" {{url('list-website/', $listWebsite->id)}} " method="post">
+					<form action=" {{url('/list-website/editProses', $listWebsite->id)}} " method="post">
 						@method('PUT')
 						@csrf
 						<div class="form-group">
@@ -39,42 +39,43 @@
 
 						<div class="form-group">
 							<label for=""> Nama Website </label>
-							<input type="text" name="nama_website" class="form-control" value=" {{ $listWebiste->nama_website }} " required>
+							<input type="text" name="nama_website" class="form-control" value=" {{ $listWebsite->nama_website }} " required>
 						</div>
 
 						<div class="form-group">
 							<label for=""> Url Website </label>
-							<input type="text" name="url_website" class="form-control" value=" {{ $listWebiste->url_website }} " required>
+							<input type="text" name="url_website" class="form-control" value=" {{ $listWebsite->url_website }} " required>
 						</div>
 
 						<div class="form-group">
 							<label for=""> Merk </label>
-							<input type="text" name="merk" class="form-control" value=" {{ $listWebiste->merk }} " required>
+							<input type="text" name="merk" class="form-control" value=" {{ $listWebsite->merk }} " required>
 						</div>
 
 						<div class="form-group">
 							<label for=""> Wilayah </label>
-							<input type="text" name="wilayah" class="form-control" value=" {{ $listWebiste->wilayah }} " required>
+							<input type="text" name="wilayah" class="form-control" value=" {{ $listWebsite->wilayah }} " required>
 						</div>
 
 						<div class="form-group">
 							<label for=""> Tanggal Aktif </label>
-							<input type="date" name="tgl_aktif" class="form-control" value=" {{ $listWebiste->tgl_aktif }} " required>
+							<input type="text" name="tgl_aktif" class="form-control" value=" {{ $listWebsite->tgl_aktif }} " required>
+
 						</div>
 
 						<div class="form-group">
 							<label for=""> Tanggal Selesai </label>
-							<input type="date" name="tgl_selesai" class="form-control" value=" {{ $listWebiste->tgl_selesai }} " required>
+							<input type="text" name="tgl_selesai" class="form-control" value=" {{ $listWebsite->tgl_selesai}} " selected  required>
 						</div>
 
 						<div class="form-group">
 							<label for=""> Periode </label>
-							<input type="text" name="periode" class="form-control" value=" {{ $listWebiste->periode }} " required>
+							<input type="text" name="periode" class="form-control" value=" {{ $listWebsite->periode }} " required>
 						</div>
 
 						<div class="form-group">
 							<label for=""> Status </label>
-							<input type="text" name="status" class="form-control" value=" {{ $listWebiste->status }} " required>
+							<input type="text" name="status" class="form-control" value=" {{ $listWebsite->status }} " required>
 						</div>
 
 						<div class="form-group">
@@ -91,7 +92,9 @@
 							</select>
 						</div>
 
-						<button type="submit" name="submit" class="btn btn-lg btn-primary">Save</button>
+						<button type="submit" class="btn btn-lg btn-primary"> <i class="fa fa-edit"></i> Update </button>
+
+						<button type="reset" class="btn btn-lg btn-primary"> <i class="fa fa-reset"></i> Batal </button>
 
 
 					</form>

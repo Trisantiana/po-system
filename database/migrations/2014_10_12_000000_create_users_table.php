@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('bio');
             $table->unsignedInteger('id_level');
-            $table->foreign('id_level')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_level')->references('id')->on('users');
             $table->rememberToken();
             $table->timestamps();
         });

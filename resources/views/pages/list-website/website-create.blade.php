@@ -81,7 +81,7 @@
 						</select>
 					</div>
 
-					<button type="submit" name="submit" class="btn btn-lg btn-primary">Save</button>
+					<button type="submit"  class="btn btn-lg btn-primary">Save</button>
 
 
 					</form>
