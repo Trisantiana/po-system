@@ -25,7 +25,7 @@
 
 </head>
 <body>
-        <!-- Left Panel -->
+    <!-- Left Panel -->
 
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
@@ -43,18 +43,18 @@
                     <li>
                         <a href="/dashboard"> <i class="menu-icon fa fa-dashboard"></i>DASHBOARD </a>
                     </li>
-                  	<li>
-                  		<a href="/list-website/data"> <i class="menu-icon fa fa-globe"></i> WEBSITE </a>
-                  	</li>
+                    <li>
+                        <a href="/list-website/data"> <i class="menu-icon fa fa-globe"></i> WEBSITE </a>
+                    </li>
                     <li>
                         <a href="/jenis-website/data"> <i class="menu-icon fa fa-globe"></i> JENIS WEBSITE </a>
                     </li>
                     <li>
-                        <a href="#"> <i class="menu-icon fa fa-users"></i> PELANGGAN </a>
+                        <a href="/pelanggan/data"> <i class="menu-icon fa fa-users"></i> PELANGGAN </a>
                     </li>
 
                     
-                   
+
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -70,12 +70,12 @@
         <header id="header" class="header">
 
             <div class="header-menu">
-            
+
 
                 <div class="col-sm-7">
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     
-            </div>
+                </div>
 
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
@@ -84,35 +84,43 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                                <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
 
-                                <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
 
-                                <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
-                                <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
-                        </div>
+                            <a class="nav-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </div>
-
                 </div>
+
             </div>
+        </div>
 
-        </header><!-- /header -->
-        <!-- Header-->
+    </header><!-- /header -->
+    <!-- Header-->
 
-        @yield('breadcrumbs')
+    @yield('breadcrumbs')
 
-        @yield('content')
+    @yield('content')
 
-    </div><!-- /#right-panel -->
+</div><!-- /#right-panel -->
 
-    <!-- Right Panel -->
+<!-- Right Panel -->
 
 
-    <script src="style/assets/js/vendor/jquery-2.1.4.min.js"></script>
-    <script src="style/assets/js/popper.min.js"></script>
-    <script src="style/assets/js/plugins.js"></script>
-    <script src="style/assets/js/main.js"></script>
+<script src="style/assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script src="style/assets/js/popper.min.js"></script>
+<script src="style/assets/js/plugins.js"></script>
+<script src="style/assets/js/main.js"></script>
 
 
 </body>

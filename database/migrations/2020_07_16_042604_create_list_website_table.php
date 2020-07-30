@@ -26,11 +26,12 @@ class CreateListWebsiteTable extends Migration
             $table->string('status');
             $table->unsignedInteger('id_jenis_website');
             $table->text('expired_at');
+            // $table->text('cart');
 
             $table->timestamps();
 
-            $table->foreign('id_pelanggan')->references('id')->on('users');
-            $table->foreign('id_jenis_website')->references('id')->on('jns_website');
+            $table->foreign('id_pelanggan')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_jenis_website')->references('id')->on('jns_website')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

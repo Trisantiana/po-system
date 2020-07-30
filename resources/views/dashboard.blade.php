@@ -56,14 +56,17 @@
         </div>
     </div>
     <!--/.col total website sewa-->
-
 </div>
-<div class="col-md-6">
+
+<!-- list website yang akan expired -->
+
+
+<div class="col-md-12">
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-12">
-                    <h4 class="card-title">Web Yang Akan Expired</h4>
+                <div class="col-lg-12">
+                    <h4 class="card-title">List Web Expired</h4>            
                     <table class="table table-striped">
                         <thead style="font-size:15px;">
                             <tr>
@@ -71,18 +74,25 @@
                                 <th>Pemilik</th>
                                 <th>Tanggal Selesai</th>
                                 <th>Sisa Masa Aktif</th>
+                                <th>#</th>
                             </tr>
                         </thead>
                         <tbody style="font-size: 14px;">
-                            @foreach($webExpired as $key => $webExpired)
+                            @foreach ($webYangAkanExpired as $webDueDate)
                                 <tr>
-                                    {{-- <td>{{ $key+1 }}</td> --}}
-                                    <td> {{ $webExpired->url_website }} </td>
-                                    <td> {{ $webExpired->user->name }} </td>
-                                    <td> {{ date('d-m-Y', strtotime($webExpired->tgl_selesai)) }} </td>
-                                    <td> {{ $webExpired->expired_at }} Hari Lagi </td>
+                                    <td>{{ $webDueDate->url_website }}</td>
+                                    <td>{{ $webDueDate->user->name }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($webDueDate->tgl_selesai)) }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($webDueDate->expired_at)) }}</td>
+                                    <td>
+                                        @if ($webDueDate->tgl_selesai === $webDueDate->expired_at && $webDueDate->tgl_selesai === $tglSekarang)
+                                            webExpired
+                                        @else
+                                        @endif
+                                    </td>
                                 </tr>
-                            @endforeach
+                            
+                            @endforeach    
                         </tbody>
                     </table>
                 </div>
@@ -92,7 +102,67 @@
             </div>
         </div>
     </div>
-</div> <!-- end col-xl-6 -->
+</div> <!-- /web-expires -->
+
+<!-- list website yang sudah expired -->
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4 class="card-title">List Web Yang Sudah Expired</h4>
+                    
+                    {{-- <p class="pull-right"> {{ $tglSekarang }} </p> --}}
+                    
+                    <table class="table table-striped">
+                        <thead style="font-size:15px;">
+                            <tr>
+                                <th>Nama Website</th>
+                                <th>Pemilik</th>
+                                <th>Tanggal Selesai</th>
+                                <th>Sisa Masa Aktif</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 14px;">
+                            @foreach($webExpired as $key => $webExpired)
+                            <tr>
+                                {{-- <td>{{ $key+1 }}</td> --}}
+                                <td> {{ $webExpired->url_website }} </td>
+                                <td> {{ $webExpired->user->name }} </td>
+                                <td> {{ date('d-m-Y', strtotime($webExpired->tgl_selesai)) }} </td>
+                                <td>
+                                    @if($webExpired->tgl_selesai < $tglSekarang)
+                                    Expired
+
+                                @else
+                                {{-- {{ ($webExpired->tgl_selesai) - ($tglSekarang)  }} --}} Hari Lagi 
+                                @endif
+                            </td>
+                            <td>
+                                <form action=" {{ route('updateExpired', $webExpired->id) }} " method="post">
+                                    @csrf
+                                    @method('put')
+                                    <button type="submit" class="btn btn-sm btn-outline-primary"><i class="fa fa-refresh"></i></button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!--/.col-->
+
+
+        </div>
+    </div>
+</div>
+</div> <!-- end col-md-12 -->
+
+
+
 
 </div><!-- .content -->
 @endsection
