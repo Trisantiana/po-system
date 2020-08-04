@@ -42,7 +42,7 @@
                     </div>
                     </div>  <!-- end .card-header -->
                     <div class="card-body">
-                        <table id="bootstrap-data-table" class="table table-striped ">
+                        <table id="bootstrap-data-table"  class="table table-striped table-data">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -53,7 +53,7 @@
                                     <th>Periode</th>
                                     <th>Status</th>
                                     <th>Jenis Website</th>
-                                    <th colspan="2">#</th>
+                                    <th>#</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,7 +67,7 @@
                                     <td> {{ $listWebsite->periode }} </td>
                                     <td> {{ $listWebsite->status }} </td>
                                     <td> {{ $listWebsite->jenisWebsite->jenis_website }} </td>
-                                    <td colspan="2">
+                                    <td>
                                         <a href=" {{ url('/list-website/update', $listWebsite->id) }} " class="btn btn-sm btn-outline-primary"><i class="fa fa-edit"></i></a>
                                         
                                    

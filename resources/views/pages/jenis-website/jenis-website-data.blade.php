@@ -41,7 +41,7 @@
                     </div>  <!-- end .card-header -->
                     
                     <div class="card-body">
-                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <table id="bootstrap-data-table" class="table table-striped table-data">
                             <thead>
                                 <tr>
                                     <th>No.</th>

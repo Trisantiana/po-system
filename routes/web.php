@@ -34,7 +34,8 @@ Route::get('/list-website/detail/{id}', 'WebsiteController@detail')->name('list-
 
 
 Route::get('/list-website/webExpired/', 'WebsiteController@expiredWebsite');
-Route::get('/countdown', 'WebsiteController@countdown');
+Route::get('/update-expired', 'WebsiteController@updateExpiredWeb');
+Route::get('/jatuh-tempo', 'WebsiteController@jatuhTempo');
 
 
 //route jenis website
@@ -43,7 +44,7 @@ Route::get('/jenis-website/create', 'JenisWebsiteController@create')->name('jeni
 Route::post('/jenis-website/addProses', 'JenisWebsiteController@addProses')->name('jenis-website.addProses');
 Route::get('/jenis-website/edit/{id}', 'JenisWebsiteController@edit')->name('jenis-website.edit');
 Route::put('/jenis-website/edit/{id}', 'JenisWebsiteController@editProses')->name('jenis-website.editProses');
-Route::delete('/jenis-website/edit/{id}', 'JenisWebsiteController@delete')->name('jenis-website.delete');
+Route::delete('/jenis-website/delete/{id}', 'JenisWebsiteController@delete')->name('jenis-website.delete');
 
 
 //route pelanggan

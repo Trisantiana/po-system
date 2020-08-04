@@ -37,14 +37,14 @@
 						<strong class="card-title">Data Website</strong>
 
 						<div class="pull-right">
-							{{-- Expired : {{ $website->expired_at }} Hari Lagi --}}
-							{{-- @if($result < 1)
-
-								<b style="color: red;">Masa Sewa Web Telah Berakhir</b>
+							@if ($result > 0)
+							<p style="font-weight : bold; color: #000">Masa Sewa Web : {{$result}} Hari Lagi</p>
 							@else
-								Expired : {{ $tglExpired }} Hari Lagi
-							@endif --}}
+							<p style="color: red; font-weight: bold;">Masa Sewa Web Sudah Habis</p>
+							@endif
+
 						</div>
+
 					</div>  <!-- end .card-header -->
 					<div class="card-body">
 						<div class="row">
@@ -110,10 +110,10 @@
 							</div>
 						</div>
 					</div>
-			</div>
-		</div> <!-- end .card -->
-	</div> <!-- end .col-md-12 -->
-</div> <!-- end .row -->
+				</div>
+			</div> <!-- end .card -->
+		</div> <!-- end .col-md-12 -->
+	</div> <!-- end .row -->
 
 </div><!-- .animated -->
 </div><!-- .content -->

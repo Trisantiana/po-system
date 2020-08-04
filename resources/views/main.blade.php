@@ -10,14 +10,14 @@
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
 
-    <link rel="stylesheet" href="style/assets/css/normalize.css">
-    <link rel="stylesheet" href="style/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style/assets/css/themify-icons.css">
-    <link rel="stylesheet" href="style/assets/css/flag-icon.min.css">
-    <link rel="stylesheet" href="style/assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="{{ asset('style/assets/css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/assets/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/assets/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/assets/css/flag-icon.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/assets/css/cs-skin-elastic.css') }}">
     <!-- <link rel="stylesheet" href="style/assets/css/bootstrap-select.less"> -->
-    <link rel="stylesheet" href="style/assets/scss/style.css">
+    <link rel="stylesheet" href="{{ asset('style/assets/scss/style.css') }}">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -74,12 +74,15 @@
 
                 <div class="col-sm-7">
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
-                    
+                    <p>Hari/Tanggal : {{ date('D, d F Y') }}</p>
                 </div>
 
                 <div class="col-sm-5">
+
                     <div class="user-area dropdown float-right">
+                        {{ Auth::user()->name }} 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                             <img class="user-avatar rounded-circle" src="style/images/admin.jpg" alt="User Avatar">
                         </a>
 
@@ -116,12 +119,35 @@
 
 <!-- Right Panel -->
 
-
-<script src="style/assets/js/vendor/jquery-2.1.4.min.js"></script>
-<script src="style/assets/js/popper.min.js"></script>
-<script src="style/assets/js/plugins.js"></script>
-<script src="style/assets/js/main.js"></script>
-
-
 </body>
 </html>
+
+
+    <script src="{{ asset('style/assets/js/vendor/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('style/assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('style/assets/js/plugins.js') }}"></script>
+    <script src="{{ asset('style/assets/js/main.js') }}"></script>
+
+
+    <script src="{{ asset('style/assets/js/lib/data-table/datatables.min.js') }}"></script>
+    <script src="{{ asset('style/assets/js/lib/data-table/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('style/assets/js/lib/data-table/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('style/assets/js/lib/data-table/buttons.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('style/assets/js/lib/data-table/jszip.min.js') }}"></script>
+    <script src="{{ asset('style/assets/js/lib/data-table/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('style/assets/js/lib/data-table/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('style/assets/js/lib/data-table/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('style/assets/js/lib/data-table/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('style/assets/js/lib/data-table/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('style/assets/js/lib/data-table/datatables-init.js') }}"></script>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('.table-data').DataTable({
+             "order": [[ 2, "asc" ]]
+          });
+        } );
+    </script>

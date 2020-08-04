@@ -25,18 +25,19 @@ class WebsiteController extends Controller
         $website = ListWebsite::find($id);
         $user = User::all();
         $jenisWebsite = JenisWebsite::all();
-        $tglSekarang = new DateTime(date('Y-m-d'));
-        $tglSelesai = new DateTime($website->tgl_selesai);
-        $tglExpired = date_diff($tglSelesai, $tglSekarang);
-        $listExpired = array($tglExpired);
-        $result = $listExpired['0']->invert;
+        // $tglSekarang = new DateTime(date('Y-m-d'));
+        // $tglSelesai = new DateTime($website->tgl_selesai);
+        // $tglExpired = date_diff($tglSelesai, $tglSekarang);
+        // $listExpired = array($tglExpired);
+        // $result = $listExpired['0']->invert;
         // dd($result);
-        // $tglSelesai = $website->tgl_selesai;
-        // $webExpired = $tglSelesai - $tglSekarang;
-        // dd($tglExpired);
+        $tglSekarang = strtotime(now());
+        $jatuhTempo =  strtotime($website->tgl_selesai);
 
+        $selisihHari = $jatuhTempo - $tglSekarang;
+        $result = substr(($selisihHari/24/60/60), 0,2);
 
-        return view('pages.list-website.website-detail', compact('website', 'user', 'jenisWebsite', 'tglExpired', 'listExpired', 'tglSekarang', 'result'));
+        return view('pages.list-website.website-detail', compact('website', 'user', 'jenisWebsite', 'selisihHari', 'result', 'tglSekarang'));
     }
 
     // function create
@@ -60,21 +61,33 @@ class WebsiteController extends Controller
     	$listWebsite->periode = $request->input('periode');
     	$listWebsite->status = $request->input('status');
     	$listWebsite->id_jenis_website = $request->input('id_jenis_website');
-    	// $tglSelesai = new DateTime($website->tgl_selesai) ;
-        $tglSekarang = new DateTime(date('Y-m-d'));
-    	// $expiredWeb = date_diff($listWebsite->tgl_selesai, $tglSekarang); 
-        $dueDate = new DateTime($listWebsite->tgl_selesai);
-        $endDueDate = $dueDate->modify("-20 days"); // tgl selesai-20 hari untuk jatuh tempo penagihan
-        $listWebsite->expired_at = $endDueDate->format('Y-m-d');
-         // dd($listWebsite->expired_at);
+
+        // **sistem sewa dengan tgl selesai dikurangi 20 hari
+        // $tglSekarang = new DateTime(date('Y-m-d'));
+        // $dueDate = new DateTime($listWebsite->tgl_selesai);
+        // $endDueDate = $dueDate->modify("-20 days"); // tgl selesai-20 hari untuk jatuh tempo penagihan
+        // $listWebsite->expired_at = $endDueDate->format('Y-m-d');
+        // dd($listWebsite->expired_at);
+        // **sistew sewa dengan hitngan selisih hari
+        // $tglSelesai = new DateTime($website->tgl_selesai) ;
+        // $expiredWeb = date_diff($listWebsite->tgl_selesai, $tglSekarang); 
         // query untuk menghitung selisih antara tgl sekarang dan tanggal selesai
     	// $expiredWeb->days = mengambil data jumlah selisih hari dari $expired web
     	// $listWebsite->expired_at = json_encode($expiredWeb);
         // dd($listWebsite->expired_at);
 
-    	$listWebsite->save();
+        $tglSekarang = strtotime(now());
+        $jatuhTempo =  strtotime($listWebsite->tgl_selesai);
 
-    	return redirect('list-website/data')->with('success', 'Data Tersimpan');
+        $selisihHari = $jatuhTempo - $tglSekarang;
+        $result = ($selisihHari/24/60/60);
+        $listWebsite->expired_at = $result;
+        
+        // dd($listWebsite->expired_at);
+
+        $listWebsite->save();
+
+        return redirect('list-website/data')->with('success', 'Data Tersimpan');
     }
 
     //function edit
@@ -90,10 +103,18 @@ class WebsiteController extends Controller
     // function proses edit
     public function editProses(Request $request, $id){
     	$listWebsite = ListWebsite::find($id);
-        $listWebsite->tgl_aktif = new DateTime($request->input('tgl_aktif'));
-        $listWebsite->tgl_selesai = new DateTime($request->input('tgl_selesai'));
-        $expiredWeb = date_diff($listWebsite->tgl_aktif, $listWebsite->tgl_selesai);
-        $listWebsite->expired_at = $expiredWeb->days;
+        //** edit dengan sistem selisih hari
+        // $listWebsite->tgl_aktif = new DateTime($request->input('tgl_aktif'));
+        // $listWebsite->tgl_selesai = new DateTime($request->input('tgl_selesai'));
+        // $expiredWeb = date_diff($listWebsite->tgl_aktif, $listWebsite->tgl_selesai);
+        // $listWebsite->expired_at = $expiredWeb->days;
+        // edit dengan sistem pengurangan hari
+        $tglSekarang = strtotime(now());
+        $jatuhTempo =  strtotime($listWebsite->tgl_selesai);
+
+        $selisihHari = $jatuhTempo - $tglSekarang;
+        $result = ($selisihHari/24/60/60);
+        $listWebsite->expired_at = $result;
 
         $listWebsite->update($request->all());
 
@@ -125,28 +146,51 @@ class WebsiteController extends Controller
     	// echo $expiredWeb->format('%m Bulan %d Hari');
     }
 
-    public function updateExpired(Request $request, $id){
-        $listWebsite = ListWebsite::find($id);
-        $tglSekarang = new DateTime(date('d-m-Y'));
-        $tglSelesai = new DateTime($listWebsite->tgl_selesai);
-        $expiredWeb = date_diff($tglSekarang, $tglSelesai);
-        // dd($expiredWeb);
-        $listWebsite->expired_at = $expiredWeb->days;
-        // $listWebsite->expired_at->update();
+    // public function updateExpired(Request $request, $id){
+    //     $listWebsite = ListWebsite::find($id);
+    //     $tglSekarang = new DateTime(date('d-m-Y'));
+    //     $tglSelesai = new DateTime($listWebsite->tgl_selesai);
+    //     $expiredWeb = date_diff($tglSekarang, $tglSelesai);
+    //     // dd($expiredWeb);
+    //     $listWebsite->expired_at = $expiredWeb->days;
+    //     // $listWebsite->expired_at->update();
         
-        $listWebsite->update($request->all());
+    //     $listWebsite->update($request->all());
 
-        return redirect()->route('dashboard');
+    //     return redirect()->route('dashboard');
+    // }
+
+    public function updateExpiredWeb(ListWebsite $listWebsite){
+        // $listWebsite->call(function () {
+        //     DB::table('list_website')->whereRaw('tgl_selesai > now()')->update(['expired_at' => '(tgl_selesai - now())']);
+        // })->daily();
+        $tglSekarang = strtotime(now());
+        $jatuhTempo =  strtotime($listWebsite->tgl_selesai);
+
+        $selisihHari = $jatuhTempo - $tglSekarang;
+        $result = substr(($selisihHari/24/60/60), 3, 15);
+        $listWebsite = ListWebsite::whereRaw('tgl_selesai > now()')->update(['expired_at' => $result])->daily();
+
+        // dd($listWebsite);
+
+        return view('home', compact('listWebsite'));
     }
 
-    public function countdown(){
-        $webExpired = ListWebsite::latest()->get();
-        $tglSekarang = date('Y-m-d');
-        // dd($tglSekarang);
 
-        return view('home', compact('webExpired', 'tglSekarang'));
+    public function jatuhTempo($id){
+        $listWebsite = ListWebsite::find($id);
+        $tglSekarang = strtotime(now());
+        $jatuhTempo =  strtotime($website->tgl_selesai);
+
+        $beda = $jatuhTempo - $tglSekarang;
+        $bedahari = substr(($beda/24/60/60), 0,2);
+        substr($bedahari, 0, 2);
+
+        return view('dashboard', compact(varname));
+
     }
 
 }
 
-    // function cart untuk menympan sesion 
+
+
