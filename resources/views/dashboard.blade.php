@@ -92,7 +92,8 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 id="web-expired" class="card-title">List Web Yang Akan Expired</h2>            
+                    <h2 id="web-expired" class="card-title">List Web Yang Akan Expired</h2>   
+        
                     <table class="table table-striped table-data">
                         <thead style="font-size:15px;">
                             <tr>
@@ -112,7 +113,7 @@
                                 <td>{{ $webDueDate->user->name }}</td>
                                 <td>{{ date('d-m-Y', strtotime($webDueDate->tgl_selesai)) }}</td>
                                 <td>
-                                    @if ($webDueDate->expired_at <= 21)
+                                    @if ($webDueDate->expired_at <= 20)
                                     <p style="color: red; font-weight: bold;">{{ substr($webDueDate->expired_at, 0, 2) }} Hari Lagi</p>
                                     
                                     @else
