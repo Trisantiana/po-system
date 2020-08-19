@@ -83,8 +83,10 @@ class HomeController extends Controller
 
         // $listWebsite->update($request->all());
 
-        $storedProcedure = DB::select("call web_expired(".$listWebsite->id.")");
+        // $storedProcedure = DB::select("call web_expired(".$listWebsite->id.")");
+        $expired_at = DB::update('update list_website set expired_at = tgl_selesai - date(now()) where id = id');
+        // var_dump($expired_at);
 
-        return redirect()->route('dashboard', compact('listWebsite', 'tglSekarang'));
+        return redirect()->route('dashboard', compact('listWebsite', 'tglSekarang', 'expired_at'));
     }
 }

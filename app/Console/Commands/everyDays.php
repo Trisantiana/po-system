@@ -40,10 +40,14 @@ class everyDays extends Command
      */
     public function handle()
     {
-        $listWebsite = ListWebsite::all();
-        foreach ($listWebsite as $key => $listWebsite) {
-            $storedProcedure = DB::select("call web_expired(".$listWebsite->id.")")->daily();
-        }
+        // $listWebsite = ListWebsite::find(19);
+        // foreach ($listWebsite as $key => $listWebsite) {
+            // $storedProcedure = DB::select("call web_expired(".$listWebsite->id.")")->daily();
+            // $tglSekarang = date('Y-m-d');
+            $expired_at = DB::update('update list_website set expired_at = tgl_selesai - date(now()) where id = id');
+            // $result = (string) $expired_at->everyMinutes();
+            
+        // }
 
         echo "Website Update Succesfully";
     }

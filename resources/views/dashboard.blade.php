@@ -150,7 +150,9 @@
                 <div class="col-lg-12">
                     <h2 class="card-title">List Web Yang Sudah Expired</h2>
                     
-                    {{-- <p class="pull-right"> {{ $tglSekarang }} </p> --}}
+                    <p class="pull-right"> 
+
+                    </p>
                     
                     <table class="table table-striped table-data">
                         <thead style="font-size:15px;">

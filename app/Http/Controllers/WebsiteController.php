@@ -160,21 +160,21 @@ class WebsiteController extends Controller
     //     return redirect()->route('dashboard');
     // }
 
-    public function updateExpiredWeb(ListWebsite $listWebsite){
-        // $listWebsite->call(function () {
-        //     DB::table('list_website')->whereRaw('tgl_selesai > now()')->update(['expired_at' => '(tgl_selesai - now())']);
-        // })->daily();
-        $tglSekarang = strtotime(now());
-        $jatuhTempo =  strtotime($listWebsite->tgl_selesai);
+    // public function updateExpiredWeb(ListWebsite $listWebsite){
+    //     // $listWebsite->call(function () {
+    //     //     DB::table('list_website')->whereRaw('tgl_selesai > now()')->update(['expired_at' => '(tgl_selesai - now())']);
+    //     // })->daily();
+    //     $tglSekarang = strtotime(now());
+    //     $jatuhTempo =  strtotime($listWebsite->tgl_selesai);
 
-        $selisihHari = $jatuhTempo - $tglSekarang;
-        $result = substr(($selisihHari/24/60/60), 3, 15);
-        $listWebsite = ListWebsite::whereRaw('tgl_selesai > now()')->update(['expired_at' => $result])->daily();
+    //     $selisihHari = $jatuhTempo - $tglSekarang;
+    //     $result = substr(($selisihHari/24/60/60), 3, 15);  // fungsi substr memotong angka mulai dari karakter ke 3 - ke 15
+    //     $listWebsite = ListWebsite::whereRaw('tgl_selesai > now()')->update(['expired_at' => $result])->daily();
 
-        // dd($listWebsite);
+    //     // dd($listWebsite);
 
-        return view('home', compact('listWebsite'));
-    }
+    //     return view('home', compact('listWebsite'));
+    // }
 
 
     public function jatuhTempo($id){
