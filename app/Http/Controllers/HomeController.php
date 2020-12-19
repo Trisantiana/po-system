@@ -49,9 +49,9 @@ class HomeController extends Controller
         $webExpired = ListWebsite::where('tgl_selesai', '<=', $tglSekarang)->latest()->get();
 
         // $webSelesai = ListWebsite::select('tgl_selesai')->get();
-        // $webYangAkanExpired = ListWebsite::where('expired_at', '>', 0)->latest()->get();
+        $webYangAkanExpired = ListWebsite::where('expired_at', '>', 0)->latest()->get();
         $month = Carbon::now();
-        $webYangAkanExpired = ListWebsite::whereMonth('tgl_selesai', $month)->orderBy('tgl_selesai', 'asc')->get();
+        // $webYangAkanExpired = ListWebsite::whereMonth('tgl_selesai', $month)->orderBy('tgl_selesai', 'asc')->get();
         // dd($webYangAkanExpired);
 
         // $month = Carbon::now();
@@ -75,18 +75,19 @@ class HomeController extends Controller
         // $listWebsite->expired_at->update();
 
         $tglSekarang = strtotime(now());
-        // $jatuhTempo =  strtotime($listWebsite->tgl_selesai);
+        $jatuhTempo =  strtotime($listWebsite->tgl_selesai);
 
-        // $selisihHari = $jatuhTempo - $tglSekarang;
-        // $result = ($selisihHari/24/60/60);
-        // $listWebsite->expired_at = $result;
+        $selisihHari = $jatuhTempo - $tglSekarang;
+        $result = ($selisihHari/24/60/60);
+        $listWebsite->expired_at = $result;
 
-        // $listWebsite->update($request->all());
+
+        $listWebsite->update($request->all());
 
         // $storedProcedure = DB::select("call web_expired(".$listWebsite->id.")");
-        $expired_at = DB::update('update list_website set expired_at = tgl_selesai - date(now()) where id = id');
+        // $expired_at = DB::update('update list_website set expired_at = tgl_selesai - date(now()) where id = id');
         // var_dump($expired_at);
 
-        return redirect()->route('dashboard', compact('listWebsite', 'tglSekarang', 'expired_at'));
+        return redirect()->route('dashboard', compact('listWebsite', 'tglSekarang' ));
     }
 }
